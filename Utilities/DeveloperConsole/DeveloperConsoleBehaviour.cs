@@ -1,8 +1,9 @@
-﻿using CodeEasyYT.DeveloperConsole.Commands;
+﻿using CodeEasyYT.Utilities.DeveloperConsole.Commands;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
-namespace CodeEasyYT.DeveloperConsole
+namespace CodeEasyYT.Utilities.DeveloperConsole
 {
     /// <summary>
     /// This class is the UI part of the developer console.

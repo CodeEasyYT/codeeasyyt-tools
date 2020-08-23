@@ -1,4 +1,4 @@
-# CodeEasyYT Utils
+# CodeEasyYT Utils for Unity (2019.1 or Higher)
 
 CodeEasyYT Utils is a library that can help you while writing code. It's simple and efficent.
 

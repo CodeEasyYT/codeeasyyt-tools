@@ -1,6 +1,6 @@
 {
 	"name": "com.codeeasyyt.utils",
-	"version": "0.8.5-preview.1",
+	"version": "0.9.5",
 	"displayName": "CodeEasyYT Utils",
 	"description": "A cuple of classes to make coding simple, and easier.",
 	"unity": "2019.1",

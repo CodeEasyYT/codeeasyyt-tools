@@ -1,8 +1,8 @@
-﻿using CodeEasyYT.DeveloperConsole.Commands;
+﻿using CodeEasyYT.Utilities.DeveloperConsole.Commands;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CodeEasyYT.DeveloperConsole
+namespace CodeEasyYT.Utilities.DeveloperConsole
 {
     /// <summary>
     /// This is the developer console itself. However to use this attach "DeveloperConsoleBehaviour" to a GameObject.

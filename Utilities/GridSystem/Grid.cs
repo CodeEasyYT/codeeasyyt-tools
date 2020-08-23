@@ -2,7 +2,7 @@
 using UnityEngine;
 using CodeEasyYT.Utils;
 
-namespace CodeEasyYT.GridSystem
+namespace CodeEasyYT.Utilities.GridSystem
 {
     /// <summary>
     /// A advenced grid system for games. This includes a debug text feature built in.
@@ -25,6 +25,8 @@ namespace CodeEasyYT.GridSystem
         private Vector2 originPosition;
         private bool showDebug;
 
+        Func<Grid<TGridObject>, int, int, TGridObject> createGridObject;
+
         private TextMesh[,] debugTextArray;
 
         /// <summary>
@@ -37,13 +39,16 @@ namespace CodeEasyYT.GridSystem
         /// <param name="createGridObject">How should I create this value?</param>
         /// <param name="showDebug">Enable built-in debug text?</param>
         /// <param name="debugColor">Color of the built-in debug text</param>
-        public Grid(int width, int height, float cellSize, Vector2 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject, bool showDebug = false, Color? debugColor = null)
+        /// <param name="fontSize">Size of the debug text (which uses ToString() of the class)</param>
+        public Grid(int width, int height, float cellSize, Vector2 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject, bool showDebug = false, Color? debugColor = null, int fontSize = 20)
         {
             this.width = width;
             this.height = height;
             this.cellSize = cellSize;
-            this.originPosition = new Vector2(originPosition.x - (originPosition.x / 2), originPosition.y - (originPosition.y / 2));
+            this.originPosition = originPosition;
             this.showDebug = showDebug;
+
+            this.createGridObject = createGridObject;
 
             gridArray = new TGridObject[width, height];
 
@@ -65,7 +70,7 @@ namespace CodeEasyYT.GridSystem
                 {
                     for (int y = 0; y < gridArray.GetLength(1); y++)
                     {
-                        debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector2(cellSize, cellSize) * 0.5f, 20, debugColor, textAnchor: TextAnchor.MiddleCenter);
+                        debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector2(cellSize, cellSize) * 0.5f, fontSize, debugColor, textAnchor: TextAnchor.MiddleCenter);
                         Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), (Color)debugColor, float.MaxValue);
                         Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), (Color)debugColor, float.MaxValue);
                     }
@@ -98,6 +103,20 @@ namespace CodeEasyYT.GridSystem
         public int GetWidth() => width;
         public int GetHeight() => height;
         public float GetCellSize() => cellSize;
+
+        public void CloneGridObjectToPoint(int x, int y, int targetX, int targetY)
+        {
+            SetGridObject(targetX, targetY, GetGridObject(x, y));
+        }
+        public void MoveGridObjectToPoint(int x, int y, int targetX, int targetY)
+        {
+            CloneGridObjectToPoint(x, y, targetX, targetY);
+            RemoveGridObject(x, y);
+        }
+        public void RemoveGridObject(int x, int y)
+        {
+            SetGridObject(x, y, createGridObject(this, x, y));
+        }
 
         //Helpers to Inside
         public void TriggerGridObjectChanged(int x, int y)

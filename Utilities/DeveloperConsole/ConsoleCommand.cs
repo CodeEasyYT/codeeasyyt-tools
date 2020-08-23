@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CodeEasyYT.DeveloperConsole.Commands
+namespace CodeEasyYT.Utilities.DeveloperConsole.Commands
 {
     /// <summary>
     /// Every command should be inherited from this.

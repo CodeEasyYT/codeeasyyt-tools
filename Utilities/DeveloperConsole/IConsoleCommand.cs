@@ -1,4 +1,4 @@
-﻿namespace CodeEasyYT.DeveloperConsole.Commands
+﻿namespace CodeEasyYT.Utilities.DeveloperConsole.Commands
 {
     /// <summary>
     /// If you want to see your command work use this.
