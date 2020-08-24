@@ -55,6 +55,11 @@ namespace CodeEasyYT.Utilities.GridSystem.Pathfinding
                 foreach (PathNode neighbourNode in GetNeighbourList(currentNode))
                 {
                     if (closeList.Contains(neighbourNode)) continue;
+                    if(!neighbourNode.isWalkable)
+                    {
+                        closeList.Add(neighbourNode);
+                        continue;
+                    }
 
                     if (CalculateDistanceCost(currentNode, neighbourNode) == int.MaxValue)
                     {
@@ -158,5 +163,15 @@ namespace CodeEasyYT.Utilities.GridSystem.Pathfinding
         public Grid<PathNode> GetGrid() => grid;
 
         public PathNode GetNode(int x, int y) => grid.GetGridObject(x, y);
+
+        public void SetWalkableState(int x, int y, bool walkable)
+        {
+            grid.GetGridObject(x, y).isWalkable = walkable;
+        }
+
+        public bool GetWalkableState(int x, int y)
+        {
+            return grid.GetGridObject(x, y).isWalkable;
+        }
     }
 }
